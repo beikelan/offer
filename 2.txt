@@ -1,0 +1,54 @@
+二维数组查找
+public class Solution {
+    public boolean Find(int target, int [][] array) {
+        int m=array.length-1;
+        int n=0;
+        while(m>=0&&n<array[0].length){
+            if(array[m][n]>target)
+            {
+                m--;
+            }
+            else if(array[m][n]<target)
+            {
+                n++;
+            }
+            else
+            {
+                return true;
+            }
+               
+            }
+        return false;
+    }
+}
+-----------------------------------------
+替换空格
+public class Solution {
+    public String replaceSpace(StringBuffer str) {
+    	int blank=0;
+        for(int i=0;i<str.length();i++)
+        {
+            if (str.charAt(i)==' ')
+                blank++;
+        }
+        int old=str.length();
+        int oldindex=old-1;
+        int newl=str.length()+blank*2;
+        int newindex=newl-1;
+        str.setLength(newl);
+        while(oldindex>=0&&newindex>oldindex)
+        {
+            if(str.charAt(oldindex)==' ')
+            {
+                str.setCharAt(newindex--,'0');
+                str.setCharAt(newindex--,'2');
+                str.setCharAt(newindex--,'%');
+            }else
+            {
+                str.setCharAt(newindex--,str.charAt(oldindex));
+            }
+            oldindex--;
+        }
+        return str.toString();
+        }
+}
