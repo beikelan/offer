@@ -1,0 +1,64 @@
+重建二叉树
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+//递归 左右子树
+import java.util.Arrays;
+public class Solution {
+    public TreeNode reConstructBinaryTree(int [] pre,int [] in) {
+        
+        if (pre.length!=in.length)
+        {
+            return null;
+        }
+        TreeNode root=null;
+        for(int i=0;i<in.length;i++)
+        {
+            if (pre[0]==in[i])
+            {
+                root=new TreeNode(in[i]);
+                root.left=reConstructBinaryTree(Arrays.copyOfRange(pre,1,i+1),Arrays.copyOfRange(in,0,i));
+                root.right=reConstructBinaryTree(Arrays.copyOfRange(pre,i+1,pre.length),Arrays.copyOfRange(in,i+1,in.length));
+            }
+        }
+        return root;
+    }
+}
+----------------------------------------------------
+从尾到头打印链表
+/**
+*    public class ListNode {
+*        int val;
+*        ListNode next = null;
+*
+*        ListNode(int val) {
+*            this.val = val;
+*        }
+*    }
+*
+*/
+import java.util.ArrayList;
+import java.util.Stack;
+public class Solution {
+    public ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
+        //借助栈先进后出的思想
+        Stack<Integer> stack=new Stack<>();
+        while(listNode!=null)
+        {
+            stack.push(listNode.val);
+            listNode=listNode.next;
+        }
+        ArrayList<Integer> list=new ArrayList<>();
+        while(!stack.isEmpty())
+        {
+            list.add(stack.pop());
+        }
+        return list;
+    }
+}
