@@ -1,0 +1,43 @@
+跳台阶
+public class Solution {
+    public int JumpFloor(int target) {
+       if(target==0)
+           return 0;
+        if (target==1)
+            return 1;
+        if(target==2)
+            return 2;
+        int p1=1;
+        int p2=2;
+        int sum=0;
+        while(target>2)
+        {
+            sum=p1+p2;
+            p1=p2;
+            p2=sum;
+            target--;
+        }
+        return sum;
+    }
+}
+----------------------------------------
+斐波拉契
+public class Solution {
+    public int Fibonacci(int n) {
+//自下而上
+        int result=0;
+        int preone=1;
+        int pretwo=0;
+        if(n==0)
+            return 0;
+        if(n==1)
+            return 1;
+        for(int i=2;i<=n;i++)
+            {
+                result=preone+pretwo;
+                pretwo=preone;
+                preone=result;
+            }
+        return result; 
+    }
+}
