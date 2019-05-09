@@ -1,0 +1,41 @@
+矩形覆盖
+public class Solution {
+    public int RectCover(int target) {
+        int sum=0;
+        int a=1;
+        int b=2;
+        if(target==1)
+            return 1;
+        if(target==2)
+            return 2;
+        for(int i=3;i<=target;i++)
+        {
+            sum=a+b;
+            a=b;
+            b=sum;
+        }
+        //若用递归方法：横着放 target-1 种方法 竖着放 target-2方法
+        return sum;
+    
+    }
+}
+----------------------------------
+变态跳台阶
+public class Solution {
+    public int JumpFloorII(int target) {
+        if (target==0)
+            return 0;
+        int a[]=new int[target];
+        for(int i=0;i<target;i++)
+        {
+            int sum=0;
+            for(int j=0;j<i;j++)
+            {
+                 sum+=a[j];
+            }
+            a[i]=sum+1;
+        }
+        return a[target-1];
+             
+    }
+}
