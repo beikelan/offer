@@ -1,0 +1,39 @@
+二进制中1的个数
+public class Solution {
+    public int NumberOf1(int n) {
+        int res=0;
+       while(n!=0)
+       {
+           n=n&(n-1);
+           res++;
+       }
+        return res;
+    }
+}
+------------------------------------------------
+数值的整数次方
+class Solution {
+    public double Power(double base, int exponent) {
+        if(exponent==0 && base != 0)
+            return 1;
+        if(exponent==1)
+            return base;
+        if(base == 0 && exponent <= 0){
+            throw new RuntimeException();
+        }
+        if(base ==0 && exponent>0){ 
+            return 0;
+        }
+        int n= exponent;
+        if(exponent<0){
+            n = -exponent;
+        }
+        double  result=Power(base,n>>1);
+        result*=result;
+        if((n&1)==1)
+            result*=base; 
+        if(exponent<0)
+            result=1/result;
+        return result; 
+    }
+}
