@@ -1,0 +1,115 @@
+二叉树的镜像
+/**
+public class TreeNode {
+    int val = 0;
+    TreeNode left = null;
+    TreeNode right = null;
+
+    public TreeNode(int val) {
+        this.val = val;
+
+    }
+
+}
+*/
+public class Solution {
+    public void Mirror(TreeNode root) {
+        //注意首先要考虑空节点
+        if (root==null)
+            return;
+        //递归实现，交换左右节点
+        TreeNode swp=root.left;
+        root.left=root.right;
+        root.right=swp;
+        Mirror(root.left);
+        Mirror(root.right);
+        //return root;
+        
+    }
+}
+-----------------------------------------------------------
+树的子结构
+/**
+public class TreeNode {
+    int val = 0;
+    TreeNode left = null;
+    TreeNode right = null;
+
+    public TreeNode(int val) {
+        this.val = val;
+
+    }
+
+}
+*/
+public class Solution {
+	// 判断root2是不是root1的子结构
+	public boolean HasSubtree(TreeNode root1, TreeNode root2) {
+		// 约定空树不是任意一个树的子结构
+		if (root1 == null || root2 == null)
+			return false;
+		boolean result = false;
+		if (root1.val == root2.val)
+			result = DoesTree1HaveTree2(root1, root2);
+		if (!result)
+			result = HasSubtree(root1.left, root2);
+		if (!result)
+			result = HasSubtree(root1.right, root2);
+		return result;
+	}
+ 
+	private boolean DoesTree1HaveTree2(TreeNode root1, TreeNode root2) {
+		// 如果root2为空，直接返回true
+		if (root2 == null)
+			return true;
+		// 如果root1为空，root2不为空，返回false
+		if (root1 == null)
+			return false;
+		// 如果两棵树都不为空
+		if (root1.val != root2.val)
+			return false;
+		
+		//如果两棵树当前节点值相同，继续判断左子树和右子树
+		return DoesTree1HaveTree2(root1.left, root2.left) && DoesTree1HaveTree2(root1.right, root2.right);
+		
+	}
+}
+----------------------------------------------------------
+合并两个排序的链表
+/*
+public class ListNode {
+    int val;
+    ListNode next = null;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}*/
+public class Solution {
+    public ListNode Merge(ListNode list1,ListNode list2) {
+        if(list1==null||list2==null)
+            return list1==null?list2:list1;
+        //头节点指向新链表
+        ListNode head=list1.val<list2.val?list1:list2;
+        ListNode cur1=head==list1?list1:list2;
+        ListNode cur2=cur1==list1?list2:list1;
+        ListNode pre=null;//cur1前一个节点
+        ListNode next=null;//cur2后一个节点
+        while(cur1!=null&&cur2!=null)
+        {
+            if(cur1.val<=cur2.val)
+            {
+                pre=cur1;
+                cur1=cur1.next;
+            }else{
+                next=cur2.next;
+                pre.next=cur2;
+                cur2.next=cur1;
+                pre=cur2;
+                cur2=next;
+            }
+        }
+        pre.next=cur1==null?cur2:cur1;
+        return head;
+    }
+}
