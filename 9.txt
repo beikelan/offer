@@ -1,0 +1,93 @@
+顺时针打印矩阵
+import java.util.ArrayList;
+public class Solution {
+    public ArrayList<Integer> printMatrix(int [][] matrix) {
+       ArrayList<Integer> list=new ArrayList<>();
+        if(list==null)
+            return list;
+        int start=0;
+        while(matrix[0].length>2*start &&matrix.length>2*start)
+        {
+              printcircle(matrix,start,list);
+              start++; 
+        }
+         return list;
+    }
+    public void printcircle(int[][] matrix,int start,ArrayList<Integer> list)
+    {
+        int endx=matrix[0].length-1-start;
+        int endy=matrix.length-1-start;
+        //从左往右打印
+        for(int i=start;i<=endx;i++)
+        {
+            list.add(matrix[start][i]);
+        }
+        //从上往下打印
+        if(start<endy)
+        {
+            for(int i=start+1;i<=endy;i++)
+            {
+                list.add(matrix[i][endx]);//注意行列表达式的值！！！
+            }
+        }
+        //从右往左打印
+        if (start<endx && start<endy)
+        {
+            for(int i=endx-1;i>=start;i--)
+            {
+                list.add(matrix[endy][i]);
+            }
+        }
+        //从下往上打印
+        if(start<endy-1 && start<endx)
+        {
+            for(int i=endy-1;i>=start+1;i--)
+            {
+                list.add(matrix[i][start]);
+            }
+        }
+    }
+}
+------------------------------------------------------
+包含Min函数的栈
+import java.util.Stack;
+
+public class Solution {
+
+    Stack<Integer> data=new Stack<Integer>();//数据栈
+    Stack<Integer> min=new Stack<Integer>();//最小值栈
+    Integer temp=null;    
+    public void push(int node) {
+        if(temp==null)
+        {
+            temp=node;
+            data.push(node);
+            min.push(node);
+        }else{
+            if(node<=temp)
+            {
+                temp=node;
+                min.push(node);
+            }
+            data.push(node);
+        }
+    }
+    
+    public void pop() {
+        int top=data.pop();
+        int mintop=min.peek();
+        if(top==mintop)
+        {
+            min.pop();
+        }
+    }
+    
+    public int top() {
+        return data.peek();
+        
+    }
+    
+    public int min() {
+        return min.peek(); 
+    }
+}
