@@ -1,0 +1,63 @@
+二叉搜索树的后序遍历序列
+public class Solution {
+    public boolean VerifySquenceOfBST(int [] sequence) {
+        if(sequence==null||sequence.length<=0) return false;
+        return verifySquenceOfBST(sequence,0,sequence.length-1);
+    }
+    private boolean verifySquenceOfBST(int[] sequence,int start,int end){
+        if(start>=end) return true;
+        int root=sequence[end];
+        int i=start;
+        while(sequence[i]<root){
+            i++;
+        }
+        int j=i;
+        while(j<end){
+            if(sequence[j]<root){
+                return false;
+            }
+            j++;
+        }
+        boolean left=verifySquenceOfBST(sequence,start,i-1);
+        boolean right=verifySquenceOfBST(sequence,i,end-1);
+        return left&&right;
+    }
+}
+--------------------------------------------------
+二叉树中和为某一值的路径
+import java.util.ArrayList;
+/**
+public class TreeNode {
+    int val = 0;
+    TreeNode left = null;
+    TreeNode right = null;
+
+    public TreeNode(int val) {
+        this.val = val;
+
+    }
+
+}
+*/
+public class Solution {
+     ArrayList<ArrayList<Integer>> res=new ArrayList<> ();
+    public ArrayList<ArrayList<Integer>> FindPath(TreeNode root,int target) {
+        bt(root,target,new ArrayList<> ());
+        return res;  
+    }
+    private void bt(TreeNode node,int target,ArrayList<Integer>path)
+    {
+        if(node==null)
+            return;
+        path.add(node.val);
+        target-=node.val;
+        if(target==0&&node.left==null&&node.right==null)
+        {
+             res.add(new ArrayList<>(path));
+        }else{
+            bt(node.left,target,path);
+            bt(node.right,target,path);
+        }
+        path.remove(path.size()-1); 
+    }
+} 
