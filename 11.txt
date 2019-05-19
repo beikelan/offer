@@ -1,0 +1,67 @@
+最小的K个数
+import java.util.ArrayList;
+public class Solution {
+    public ArrayList<Integer> GetLeastNumbers_Solution(int [] input, int k) {
+        //思路1：冒泡排序  快排
+        //思路2：hashset  自动升序排列
+        ArrayList<Integer> list=new ArrayList<Integer>();
+        if (input==null||input.length<k)return list;
+        for(int i=0;i<k;i++)
+        {
+            for (int j=input.length-1;j>i;j--)
+            {
+                if(input[j-1]>input[j])
+                {
+                    int tmp=input[j];
+                    input[j]=input[j-1];
+                    input[j-1]=tmp;
+                }
+            }
+            list.add(input[i]);
+        }
+        return list;
+    }
+}
+------------------------------------------------------
+数组中出现次数超过一半的数字
+//该数字出现的次数比其他所有数字出现的次数都要多。
+public class Solution {
+    public int MoreThanHalfNum_Solution(int [] array) {
+        if(array==null)return 0;
+        int res=array[0];
+        int count=0;
+        for(int i=0;i<array.length;i++)
+        {
+            if (array[i]==res)
+            {
+                count++;
+            }
+            else{
+                count--;
+            }
+            if(count==0)
+            {
+                res=array[i];
+                count=1;
+            }
+        }
+        //找出最后count=1对应的数字，这个数字最有可能成为出现次数最多的数字。
+        if(count>0)
+        {
+            int times=0;
+            for(int i=0;i<array.length;i++)
+            {
+                if(array[i]==res)
+                {
+                    times++;
+                }
+            }
+            if(times*2>array.length)
+            {
+                return res;
+            }
+        }
+        //验证这个数字出现的次数是不是超过数组长度的一半。
+        return 0;
+    }
+}
