@@ -1,0 +1,62 @@
+和为s的两个数
+import java.util.ArrayList;
+public class Solution {
+    public ArrayList<Integer> FindNumbersWithSum(int [] array,int sum) {
+       //夹逼
+        int small=0;
+        int big=array.length-1;
+        ArrayList<Integer> list=new ArrayList<>();
+        while(small<big){
+            int cursum=array[small]+array[big];
+            if(cursum==sum){
+                list.add(array[small]);
+                list.add(array[big]);
+                break;
+            }
+            else if(cursum>sum){
+                big--;
+            }
+            else{
+                small++;
+            }
+        }
+       return list;
+    }
+}
+---------------------------------------------------------
+和为s的连续整数序列
+import java.util.ArrayList;
+public class Solution {
+    //类似这种类型的题目：使用夹逼方法，设置大小指针
+    public ArrayList<ArrayList<Integer> > FindContinuousSequence(int sum) {
+       ArrayList<ArrayList<Integer>> lists=new ArrayList<ArrayList<Integer>>();
+       int small=1;
+       int big=2;
+        while(small<=(sum+1)/2){
+            int sumall=sumof(small,big);
+            if(sumall==sum){
+                ArrayList<Integer> list=new ArrayList<>();
+                for(int i=small;i<=big;i++){
+                    list.add(i);
+                }
+                lists.add(list);
+                small++;
+                big++;
+            }
+            else if(sumall<sum){
+                big++;
+            }
+            else{
+                small++;
+            }
+        }
+       return lists;
+    }
+    private int sumof(int head, int tail){
+        int sum=head;
+        for(int i=head+1;i<=tail;i++){
+            sum+=i;
+        }
+        return sum;
+    }
+}
