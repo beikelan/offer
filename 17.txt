@@ -1,0 +1,60 @@
+翻转单词顺序列
+public class Solution {
+    public String ReverseSentence(String str) {
+       //需要注意对空格的处理
+        if(str==null)return str;
+        char[] charArray=str.toCharArray();
+        reverse(charArray,0,charArray.length-1);
+        int start=0;
+        int end=0;
+        while(end<charArray.length){
+            if(charArray[end]!=' '){
+                if(end==charArray.length-1){
+                    reverse(charArray,start,end);}
+                    end++;
+             
+                
+            }
+            else if(charArray[end]==' '){
+                reverse(charArray,start,end-1);
+                end++;
+                start=end;
+            }
+        }
+        return String.valueOf(charArray);
+    }
+    private void reverse(char[] array, int start,int end){
+        char tem=' ';
+        while(start<end){
+            tem=array[start];
+            array[start]=array[end];
+            array[end]=tem;
+            start++;
+            end--;
+        }
+    }
+}
+--------------------------------------
+左旋转字符串
+public class Solution {
+    public String LeftRotateString(String str,int n) {
+        //分段旋转字符串
+        if(str==null||str.length()<=0)
+            return str;
+        char[] charArray =str.toCharArray();
+        reverse(charArray,0,n-1);
+        reverse(charArray,n,charArray.length-1);
+        reverse(charArray,0,charArray.length-1);
+        return String.valueOf(charArray);
+    }
+    private void reverse(char[] array,int start,int end){
+        char tem=' ';
+        while(start<end){
+            tem=array[start];
+            array[start]=array[end];
+            array[end]=tem;
+            start++;
+            end--;
+        }
+    }
+}
